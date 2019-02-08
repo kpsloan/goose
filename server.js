@@ -38,7 +38,7 @@ app.use('/', routes);
 mongoose.Promise = Promise;
 var dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/technology";
 
-mongoose.connect(dbURI);
+mongoose.connect(dbURI, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on("error", function(error) {
     console.log("Mongoose Error: ", error);

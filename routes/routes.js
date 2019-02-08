@@ -10,7 +10,7 @@ var app = express();
 app.get("/", function(req, res) {
 	db.Article.find({}, null, {sort: {created: -1}}, function(err, data) {
 		if(data.length === 0) {
-			res.render("placeholder", {message: "Press the button for the most recent articles or enter a new search term."});
+			res.render("placeholder", {message: "Press the button for most recent articles or enter a new search term."});
 		}
 		else{
 			res.render("index", {articles: data});
@@ -55,7 +55,7 @@ app.get("/scrape", function(req, res) {
 app.get("/saved", function(req, res) {
 	db.Article.find({issaved: true}, null, {sort: {created: -1}}, function(err, data) {
 		if(data.length === 0) {
-			res.render("placeholder", {message: "Please save an article to view."});
+			res.render("placeholder", {message: "Save an article to view."});
 		}
 		else {
 			res.render("saved", {saved: data});
