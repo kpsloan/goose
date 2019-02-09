@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 
 // Create a new UserSchema object
-var Article = new Schema({
+var ArticleSchema = new Schema({
 
     title: {
 		type: String,
@@ -39,11 +39,11 @@ var Article = new Schema({
 	}
 });
 
-Article.index({title: "text"});
+// Article.index({title: "text"});
 
 
 
-//var Article  = mongoose.model("Article", ArticleSchema);
+var Article = mongoose.model("Article", ArticleSchema);
 
 // Export the Article model
 module.exports = Article;

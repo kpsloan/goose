@@ -1,15 +1,15 @@
-// Show note
-function shownote(event) {
+// Show comment
+function showcomment(event) {
 	event.preventDefault();
 	var id = $(this).attr("value");
-	$("#addnote").fadeIn(300).css("display", "flex");
-	$("#add-note").attr("value", id);
+	$("#addcomment").fadeIn(300).css("display", "flex");
+	$("#add-comment").attr("value", id);
 	$.get("/" + id, function(data) {
 		$("#article-title").text(data.title);
-		$.get("/note/" + id, function(data) {
+		$.get("/comment/" + id, function(data) {
 			if (data) {
-				$("#note-title").val(data.title);
-				$("#note-body").val(data.body);
+				$("#comment-title").val(data.title);
+				$("#comment-body").val(data.body);
 			}
 		});
 	});
@@ -17,15 +17,15 @@ function shownote(event) {
 }
 
 
-// Add note
-function addnote(event) {
+// Add comment
+function addcomment(event) {
 	event.preventDefault();
 	var id = $(this).attr("value");
 	var obj = {
-		title: $("#note-title").val().trim(),
-		body: $("#note-body").val().trim()
+		title: $("#comment-title").val().trim(),
+		body: $("#comment-body").val().trim()
 	};
-	$.post("/note/" + id, obj, function(data) {
+	$.post("/comment/" + id, obj, function(data) {
 		window.location.href = "/saved";
 	});
 }
@@ -44,9 +44,9 @@ function changeback() {
 
 
 // Functionality
-$(document).on("click", ".addnote-button", shownote);
-$(document).on("click", "#add-note", addnote);
+$(document).on("click", ".showcomment-button", showcomment);
+$(document).on("click", "#add-comment", addcomment);
 $(".status").hover(changestatus, changeback);
-$("#close-note").on("click", function() {
-	$("#addnote").fadeOut(300);
+$("#close-comment").on("click", function() {
+	$("#addcomment").fadeOut(300);
 });

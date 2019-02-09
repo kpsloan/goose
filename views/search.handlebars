@@ -1,14 +1,14 @@
-{{#each articles}}
+{{#each search}}
 <div class="story-body" id={{this._id}}>
 <h2>
 <a href="{{this.link}}" target="_blank">{{this.title}}</a>
 <form action="/save/{{this._id}}" method="POST">
 <button type="submit" class="status" value="{{this.status}}">{{this.status}}</button>
-{{#unless this.comment}}
+{{#unless this.note}}
 <button type="button" class="addcomment-button" value="{{this._id}}">Add A Comment</button>
 {{/unless}}
-{{#if this.comment}}
-<button type="button" class="addcomment-button" value="{{this._id}}">Edit A Comment</button>
+{{#if this.note}}
+<button type="button" class="addcomment-button" value="{{this._id}}">Edit Comment</button>
 {{/if}}
 </form>
 </h2>
