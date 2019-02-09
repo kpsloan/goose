@@ -4,10 +4,10 @@ var exphbs = require('express-handlebars');
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
-var Article = require('./models/articles.js');
-var Comment = require('./models/comments.js');
 var axios = require("axios");
 var cheerio = require("cheerio");
+var Article = require('./models/articles.js');
+var Comment = require('./models/comments.js');
 
 
 // Sets up Express App
@@ -45,7 +45,7 @@ var db = require("./models");
 app.get("/", function(req, res) {
 	db.Article.find({}, null, {sort: {created: -1}}, function(err, data) {
 		if(data.length === 0) {
-			res.render("placeholder", {message: "Press the button for most recent articles or enter a new search term."});
+			res.render("placeholder", {message: "Press button for most recent articles or try searching."});
 		}
 		else{
 			res.render("index", {articles: data});
@@ -54,8 +54,8 @@ app.get("/", function(req, res) {
 });
 
 app.get("/scrape", function(req, res) {
-	axios.get("https://www.nytimes.com/section/technology", function(error, response, html) {
-		var $ = cheerio.load(html);
+	axios.get("https://www.nytimes.com/section/technology").then(function(response) {
+		var $ = cheerio.load(response.data);
 		var result = {};
 		$("div.story-body").each(function(i, element) {
 			var link = $(element).find("a").attr("href");
@@ -90,7 +90,7 @@ app.get("/scrape", function(req, res) {
 app.get("/saved", function(req, res) {
 	db.Article.find({issaved: true}, null, {sort: {created: -1}}, function(err, data) {
 		if(data.length === 0) {
-			res.render("placeholder", {message: "Save an article to view."});
+			res.render("placeholder", {message: "Save an article to view"});
 		}
 		else {
 			res.render("saved", {saved: data});
@@ -109,7 +109,7 @@ app.post("/search", function(req, res) {
 	Article.find({$text: {$search: req.body.search, $caseSensitive: false}}, null, {sort: {created: -1}}, function(err, data) {
 		console.log(data);
 		if (data.length === 0) {
-			res.render("placeholder", {message: "No results. Try another search."});
+			res.render("placeholder", {message: "No results, try again"});
 		}
 		else {
 			res.render("search", {search: data})
@@ -151,15 +151,6 @@ app.get("/comment/:id", function(req, res) {
 		res.send(data.comment);
 	})
 })
-
-
-// db.on("error", function(err) {
-//     console.log("Mongoose Error: ", err);
-// });
-
-// db.once("open", function() {
-//     console.log("Mongoose connection successful.");
-// });
 
 
 
