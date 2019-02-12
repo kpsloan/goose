@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-		<link rel="stylesheet" href="./public/css/style.css" type="text/css" />
+		<link rel="stylesheet" href="./css/style.css" type="text/css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<title>NYT Technology Scraper</title>
 </head>
 
 <body>
 	<header>
-		<a href="/"><div id="sitename">NYT Tech Scraper</div></a>
+		{{!-- <a href="/"><div id="sitename">NYT Tech Scraper</div></a> --}}
 		<a href="/"><button id="all-articles">All Articles</button></a>
 		<a href="/saved"><button id="saved-articles">Saved Articles</button></a>
 		<form action="/scrape" method="GET">
@@ -20,12 +20,10 @@
 			<input type="text" name="search" placeholder="Search for articles" id="search-input">
 		</form>
 	</header>
-	{{!-- <img id="cover" src="/assets/images/cover.jpg" height="500px"> --}}
 	<div id="container">
 		{{{ body }}}
 	</div>
 	
-	{{!-- <script src="../../public/app.js"></script> --}}
 
 	<div id="addcomment">
 		<div id="comment-displayer">
@@ -43,6 +41,6 @@
 	</div>
 	
 	
-	<script src="./public/app.js"></script>
+	<script src="./app.js"></script>
 </body>
 </html>

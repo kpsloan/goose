@@ -30,7 +30,7 @@ function addcomment(event) {
 	});
 }
 
-// Change status of article
+// Change article status
 function changestatus() {
 	var status = $(this).attr("value");
 	if (status === "Saved") {

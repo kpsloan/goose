@@ -82,7 +82,7 @@ app.get("/scrape", function(req, res) {
 				}
 			});
 		});
-		console.log("Scrape complete.");
+		console.log("Scraping finished.");
 		res.redirect("/");
 	});
 });
@@ -108,7 +108,7 @@ app.post("/search", function(req, res) {
 	console.log(req.body.search);
 	Article.find({$text: {$search: req.body.search, $caseSensitive: false}}, null, {sort: {created: -1}}, function(err, data) {
 		console.log(data);
-		if (data.length === 0) {
+		if (typeof data == 'undefined' || data.length === 0) {
 			res.render("placeholder", {message: "No results, try again"});
 		}
 		else {
@@ -151,7 +151,6 @@ app.get("/comment/:id", function(req, res) {
 		res.send(data.comment);
 	})
 })
-
 
 
 // start the server, listen on port 3000
