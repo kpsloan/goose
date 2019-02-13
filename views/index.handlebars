@@ -2,6 +2,9 @@
 <div class="story-body" id={{this._id}}>
 <h2>
 <a href="{{this.link}}" target="_blank">{{this.title}}</a>
+</h2>
+<summary>{{this.summary}}</summary>
+<img class="media" src="{{this.img}}">
 <form action="/save/{{this._id}}" method="POST">
 <button type="submit" class="status" value="{{this.status}}">{{this.status}}</button>
 {{#unless this.comment}}
@@ -11,8 +14,6 @@
 <button type="button" class="addcomment-button" value="{{this._id}}">Edit A Comment</button>
 {{/if}}
 </form>
-</h2>
-<summary>{{this.summary}}</summary>
-<img class="media" src="{{this.img}}">
+<br>
 </div>
 {{/each}}

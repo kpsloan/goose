@@ -6,8 +6,8 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
 
 	_id: {
-		type: String,
-		default: false
+		type: Schema.Types.ObjectId,
+		auto:true
 	},
     title: {
 		type: String,
@@ -38,7 +38,7 @@ var ArticleSchema = new Schema({
 		default: Date.now
 	},
 	note: {
-		type: Schema.Types.ObjectId,
+		type: String,
 		ref: "Comment"
 	}
 });

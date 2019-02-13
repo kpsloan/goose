@@ -112,6 +112,7 @@ app.post("/search", function (req, res) {
 });
 
 app.post("/save/:id", function (req, res) {
+
     Article.findById(req.params.id, function (err, data) {
         if (data.issaved) {
             Article.findByIdAndUpdate(req.params.id, { $set: { issaved: false, status: "Save Article" } }, { new: true }, function (err, data) {
@@ -130,7 +131,7 @@ app.post("/comment/:id", function (req, res) {
     var comment = new Comment(req.body);
     comment.save(function (err, doc) {
         if (err) throw err;
-        Article.findByIdAndUpdate(req.params.id, { $set: { "comment": doc._id } }, { new: true }, function (err, newdoc) {
+        Article.findByIdAndUpdate(comment._id, { $set: { "comment": comment._id } }, { new: true }, function (err, newdoc) {
             if (err) throw err;
             else {
                 res.send(newdoc);
