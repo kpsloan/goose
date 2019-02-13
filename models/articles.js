@@ -6,8 +6,9 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
 
 	_id: {
-		type: String
-	  },
+		type: String,
+		default: false
+	},
     title: {
 		type: String,
 		required: true,
@@ -41,9 +42,6 @@ var ArticleSchema = new Schema({
 		ref: "Comment"
 	}
 });
-
-// Article.index({title: "text"});
-
 
 
 var Article = mongoose.model("Article", ArticleSchema);
