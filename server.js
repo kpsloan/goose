@@ -8,7 +8,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var Article = require('./models/articles.js');
 var Comment = require('./models/comments.js');
-
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 // Sets up Express App
 var app = express();
@@ -45,7 +45,7 @@ var db = require("./models");
 app.get("/", function (req, res) {
     db.Article.find({}, null, { sort: { created: -1 } }, function (err, data) {
         if (data.length === 0) {
-            res.render("placeholder", { message: "Press button for most recent articles or try searching." });
+            res.render("placeholder", { message: "Search or press button to get the latest." });
         }
         else {
             res.render("index", { articles: data });
@@ -84,7 +84,7 @@ app.get("/scrape", function (req, res) {
 app.get("/saved", function (req, res) {
     db.Article.find({ issaved: true }, null, { sort: { created: -1 } }, function (err, data) {
         if (data.length === 0) {
-            res.render("placeholder", { message: "Save an article to view" });
+            res.render("placeholder", { message: "Save an article for later" });
         }
         else {
             res.render("saved", { saved: data });
@@ -103,7 +103,7 @@ app.post("/search", function (req, res) {
     Article.find({ $text: { $search: req.body.search, $caseSensitive: false } }, null, { sort: { created: -1 } }, function (err, data) {
         console.log(data);
         if (typeof data == 'undefined' || data.length === 0) {
-            res.render("placeholder", { message: "No results, try again" });
+            res.render("placeholder", { message: "Oops! Nothing came back! Give it another shot!" });
         }
         else {
             res.render("search", { search: data })
@@ -131,7 +131,9 @@ app.post("/comment/:id", function (req, res) {
     var comment = new Comment(req.body);
     comment.save(function (err, doc) {
         if (err) throw err;
-        Article.findByIdAndUpdate(comment._id, { $set: { "comment": comment._id } }, { new: true }, function (err, newdoc) {
+        Article.findByIdAndUpdate(req.body.articleid,  
+        	{ "comment": comment._id }, function (err, newdoc) {
+        	console.log('wat')
             if (err) throw err;
             else {
                 res.send(newdoc);

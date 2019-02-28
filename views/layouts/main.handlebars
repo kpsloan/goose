@@ -13,10 +13,10 @@
 		<a href="/"><button id="all-articles">All Articles</button></a>
 		<a href="/saved"><button id="saved-articles">Saved Articles</button></a>
 		<form action="/scrape" method="GET">
-			<button type="submit" id="refresh-articles">Scrape For Latest</button>
+			<button type="submit" id="refresh-articles">Get Latest</button>
 		</form>
 		<form action="/search" method="POST">
-			<button type="submit" id="search-submit">Submit</button>
+			<button type="submit" id="search-submit">Go</button>
 			<input type="text" name="search" placeholder="Search for articles" id="search-input">
 		</form>
 	</header>
@@ -32,6 +32,9 @@
 			<div id="comment">
 				<label for="comment-title">Title</label><br>
 				<input type="text" placeholder="" name="title" id="comment-title"><br>
+				{{!-- ID things --}}
+				<label for="article-id"></label><br> 
+				<input type="hidden" name="articleid" id="article-id"><br>
 				<label for="comment-body">Comment</label><br>
 				<textarea rows="7" placeholder="" id="comment-body"></textarea><br>
 				<button type="submit" id="add-comment">Save</button>

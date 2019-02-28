@@ -40,6 +40,9 @@ var ArticleSchema = new Schema({
 	note: {
 		type: String,
 		ref: "Comment"
+	},
+	comment: {
+		type: String
 	}
 });
 
